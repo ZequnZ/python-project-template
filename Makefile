@@ -14,3 +14,6 @@ lint:
 format:
 	ruff check ./src --fix
 	black ./src --v
+
+test:
+	pytest ./src/test

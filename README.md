@@ -41,9 +41,14 @@ Activating your env to maintain a stable development environment.
     - code formatter: https://github.com/psf/black  
     - linter: https://github.com/charliermarsh/ruff.  Rules→[here](https://beta.ruff.rs/docs/rules/)
 
+- Testing(pytest):
+    - running test: `pytest ./src/test`
+    - test on specific marker: `pytest ./src/test -m <mark_name>`
+    - test + duration report: `pytest ./src/test --durations=3`
+    - test + coverage: `pytest --cov=src ./src/test`
+    - test + force coverage: `pytest --cov-fail-under=80 ./src/test`
+
 ## TODO
- - Testing:
-    - pytest
 
 - pre-commit hook:
     -black [link](https://black.readthedocs.io/en/stable/integrations/source_version_control.html)
