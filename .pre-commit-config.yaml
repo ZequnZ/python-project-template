@@ -1,0 +1,31 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-added-large-files
+
+-   repo: local
+    hooks:
+    -   id: black-formatter
+        name: black-formatter
+        entry: black ./src -v
+        files: ./src
+        language: system
+        always_run: true
+    -   id: ruff-formatter
+        name: ruff-formatter
+        entry: ruff check ./src --fix
+        files: ./src
+        language: system
+        always_run: true
+    -   id: mypy-checker
+        name: mypy-checker
+        entry: mypy ./src
+        files: ./src
+        language: system
+        always_run: true
