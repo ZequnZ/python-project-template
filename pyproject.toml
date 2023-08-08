@@ -1,3 +1,28 @@
+[tool.poetry]
+name = "python-project-template"
+version = "0.1.0"
+description = ""
+authors = ["ZequnZ <zequn.zhou007@gmail.com>"]
+readme = "README.md"
+#packages = [{include = "python_project_template"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.4.1"
+black = "^23.7.0"
+ruff = "^0.0.282"
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+pre-commit = "^3.3.3"
+isort = "^5.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
 # mypy global options:
 # See https://mypy.readthedocs.io/en/stable/config_file.html#example-pyproject-toml
 [tool.mypy]
@@ -69,3 +94,5 @@ markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
     "test_mark: mark test for testing purposes (deselect with '-m \"not test_mark\"')"
 ]
+
+
