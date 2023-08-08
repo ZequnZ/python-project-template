@@ -1,19 +1,23 @@
-venv:
-	pyenv activate pyproj
+activate-virtualenv:
+	poetry shell
 
-install-dev:
-	pip install -r requirements/dev.txt
+install-dependency:
+	poetry install
 
 checker:
-	mypy ./src
+	poetry run mypy ./src --check-untyped-defs
 
-lint:
-	ruff check ./src
-	black ./src --check
+linter:
+	poetry run black ./src --check
+	poetry run ruff check ./src
 
-format:
-	ruff check ./src --fix
-	black ./src -v
+formatter:
+	poetry run black ./src -v
+	poetry run ruff check ./src --fix
+	poetry run isort ./src -v
 
 test:
-	pytest ./src/test
+	poetry run pytest ./src/test
+
+precommit:
+	poetry run pre-commit run

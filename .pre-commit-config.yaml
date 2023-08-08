@@ -13,19 +13,19 @@ repos:
     hooks:
     -   id: black-formatter
         name: black-formatter
-        entry: black ./src -v
+        entry: poetry run black ./src -v
         files: ./src
         language: system
         always_run: true
     -   id: ruff-formatter
         name: ruff-formatter
-        entry: ruff check ./src --fix
+        entry: poetry run ruff check ./src --fix
         files: ./src
         language: system
         always_run: true
     -   id: mypy-checker
         name: mypy-checker
-        entry: mypy ./src
+        entry: poetry run mypy ./src --check-untyped-defs
         files: ./src
         language: system
         always_run: true
