@@ -18,3 +18,6 @@ formatter:
 
 test:
 	poetry run pytest ./src/test
+
+precommit:
+	poetry run pre-commit run
