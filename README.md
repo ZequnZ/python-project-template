@@ -55,6 +55,7 @@ Then we can create a Python virtual env as follows:
 ```
 
 **[Deprecated]**, use Poetry for setting virtual environment and dependency management
+
 ~~2. Create a virtual env, with Python verison and customized name:~~
 ```
     pyenv virtualenv <python_version> <environment_name>
@@ -69,6 +70,7 @@ Then we can create a Python virtual env as follows:
 ~~Activating your env to maintain a stable development environment.~~
 
 And then, you just need:
+
 2. Create a virtual environment and install dependency:
 ```
 poetry install
