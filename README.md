@@ -82,3 +82,4 @@ poetry install
 
 reference:
 https://github.com/TezRomacH/python-package-template
+https://github.com/stevemao/github-issue-templates
