@@ -1,7 +1,41 @@
-# python-project-template
-A template for Python project
+# Python project template
 
-I would create a template for Python project, so that some best practices can be picked and used whenever needed.
+A template for **Python project**, equipped with best practices, can be used whenever needed.
+
+## Highlights
+
+### 🛠️ Reproducible development environment:
+- Python version management tool: [pyenv](https://github.com/pyenv/pyenv)
+- Python packaging and dependency management: [Poetry](https://python-poetry.org/)
+- [TODO] Dockerfile: test and run codes within container
+- Makefile: provides shortcuts to making life easier
+
+### 🧹 Maintain a clean code style
+- Type checker: [mypy](https://github.com/python/mypy)
+- Code formatter:[black](https://github.com/psf/black)
+- Linter: [ruff](https://github.com/charliermarsh/ruff).  Rules→[here](https://beta.ruff.rs/docs/rules/)
+- Import sorter: [isort](https://pycqa.github.io/isort/)
+
+### 🩺 Testing framework [pytest](https://docs.pytest.org/en/7.4.x/)
+- Running test: `pytest ./src/test`
+- Test on specific marker: `pytest ./src/test -m <mark_name>`
+- Test + duration report: `pytest ./src/test --durations=3`
+- Test + coverage: `pytest --cov=src ./src/test`
+- Test + force coverage: `pytest --cov-fail-under=80 ./src/test`
+
+### 🪄 pre-commit hook:
+- Run [.pre-commit-config.yaml](./.pre-commit-config.yaml) every time before submission to ensure quality
+- Install pre-commit: [link](https://pre-commit.com/#install)
+- Generate & modify [.pre-commit-config.yaml](./.pre-commit-config.yaml)
+- Set up the git hook scripts: `pre-commit install`
+- TODO:
+    -black [link](https://black.readthedocs.io/en/stable/integrations/source_version_control.html)
+    - ruff [link](https://beta.ruff.rs/docs/tutorial/#continuous-integration)
+
+### 📝 Github Features:
+- PR template
+- Issue template
+
 
 ## Guidebook
 
@@ -40,35 +74,6 @@ And then, you just need:
 poetry install
 ```
 
-## What're added:
-- reproducible development environment:
-    - dependency management tool: [Poetry](https://python-poetry.org/)
-    - dev env: 1. virtual env; 2. Docker[TBD]
-    - config file: pyproject.toml
-    - Makefile
-
-- Linter, formatter and type checker:
-    - type checker: https://github.com/python/mypy
-    - code formatter: https://github.com/psf/black
-    - linter: https://github.com/charliermarsh/ruff.  Rules→[here](https://beta.ruff.rs/docs/rules/)
-    - import sorter: https://pycqa.github.io/isort/
-
-- Testing(pytest):
-    - running test: `pytest ./src/test`
-    - test on specific marker: `pytest ./src/test -m <mark_name>`
-    - test + duration report: `pytest ./src/test --durations=3`
-    - test + coverage: `pytest --cov=src ./src/test`
-    - test + force coverage: `pytest --cov-fail-under=80 ./src/test`
-
-- pre-commit hook:
-    - install pre-commit: [link](https://pre-commit.com/#install)
-    - generate & modify [.pre-commit-config.yaml](./.pre-commit-config.yaml)
-    - set up the git hook scripts: `pre-commit install`
-    TBD:
-        -black [link](https://black.readthedocs.io/en/stable/integrations/source_version_control.html)
-        - ruff [link](https://beta.ruff.rs/docs/tutorial/#continuous-integration)
-
-
 ## TODO
 
 - Docker compose for spin-up different components:
@@ -77,9 +82,7 @@ poetry install
 
 - CI:
 
-- Github Features:
 
-
-reference:
-https://github.com/TezRomacH/python-package-template
-https://github.com/stevemao/github-issue-templates
+Reference:
+- https://github.com/TezRomacH/python-package-template
+- https://github.com/stevemao/github-issue-templates
