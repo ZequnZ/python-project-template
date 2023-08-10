@@ -21,3 +21,15 @@ test:
 
 precommit:
 	poetry run pre-commit run
+
+docker-build:
+	docker build py-proj-template .
+
+docker-run:
+	docker run --name py-proj-template -itd py-proj-template
+
+docker-exec:
+	docker exec -it py-proj-template bash
+
+docker-stop:
+	docker stop  py-proj-template
