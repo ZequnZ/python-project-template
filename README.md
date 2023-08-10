@@ -7,7 +7,7 @@ A template for **Python project**, equipped with best practices, can be used whe
 ### 🛠️ Reproducible development environment:
 - Python version management tool: [pyenv](https://github.com/pyenv/pyenv)
 - Python packaging and dependency management: [Poetry](https://python-poetry.org/)
-- [TODO] Dockerfile: test and run codes within container
+- Dockerfile: test and run codes within container
 - Makefile: provides shortcuts to making life easier
 
 ### 🧹 Maintain a clean code style
