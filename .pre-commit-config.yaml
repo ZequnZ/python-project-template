@@ -11,6 +11,12 @@ repos:
 
 -   repo: local
     hooks:
+    -   id: ruff-linter
+        name: ruff-linter
+        entry: task linter
+        files: ./src
+        language: system
+        always_run: true
     -   id: ruff-formatter
         name: ruff-formatter
         entry: task formatter
@@ -19,7 +25,7 @@ repos:
         always_run: true
     -   id: mypy-checker
         name: mypy-checker
-        entry: poetry run mypy ./src --check-untyped-defs
+        entry: task checker
         files: ./src
         language: system
         always_run: true
