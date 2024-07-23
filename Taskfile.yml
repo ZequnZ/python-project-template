@@ -1,0 +1,37 @@
+version: '3'
+
+vars:
+  TESTDIR: test
+
+tasks:
+  linter-watch:
+    desc: Run ruff linter in the watched mode.
+    cmds:
+      - poetry run ruff check . --watch
+
+  linter:
+    desc: Run ruff linter and fix the suggested changes.
+    cmds:
+      - poetry run ruff check ./src --fix
+
+  formatter:
+    desc: Run ruff formatter to clean up the codebase.
+    cmds:
+      - poetry run ruff check ./src --select I --fix
+      - poetry run ruff format ./src
+
+  checker:
+    desc: Run type checker.
+    cmds:
+      - poetry run mypy ./src --check-untyped-defs
+
+  run-test:
+    desc: Run tests(unit, integration and more...) in TESTDIR(default=tests) folder
+    dir: '{{ .USER_WORKING_DIR }}'
+    cmds:
+      - poetry run pytest -sv ./src/{{ .TESTDIR }} -s
+
+  precommit:
+    desc: Run pre-commit
+    cmds:
+      - poetry run pre-commit run
