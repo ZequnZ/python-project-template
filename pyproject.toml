@@ -12,12 +12,10 @@ python = "^3.10"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.4.1"
-black = "^23.7.0"
-ruff = "^0.0.282"
-pytest = "^7.4.0"
+ruff = "^0.5.4"
+pytest = "^8.3.1"
 pytest-cov = "^4.1.0"
 pre-commit = "^3.3.3"
-isort = "^5.12.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -94,5 +92,3 @@ markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
     "test_mark: mark test for testing purposes (deselect with '-m \"not test_mark\"')"
 ]
-
-
