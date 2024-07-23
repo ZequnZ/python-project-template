@@ -11,21 +11,21 @@ repos:
 
 -   repo: local
     hooks:
-    -   id: black-formatter
-        name: black-formatter
-        entry: poetry run black ./src -v
+    -   id: ruff-linter
+        name: ruff-linter
+        entry: task linter
         files: ./src
         language: system
         always_run: true
     -   id: ruff-formatter
         name: ruff-formatter
-        entry: poetry run ruff check ./src --fix
+        entry: task formatter
         files: ./src
         language: system
         always_run: true
     -   id: mypy-checker
         name: mypy-checker
-        entry: poetry run mypy ./src --check-untyped-defs
+        entry: task checker
         files: ./src
         language: system
         always_run: true
