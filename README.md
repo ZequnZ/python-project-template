@@ -8,13 +8,14 @@ A template for **Python project**, equipped with best practices, can be used whe
 - Python version management tool: [pyenv](https://github.com/pyenv/pyenv)
 - Python packaging and dependency management: [Poetry](https://python-poetry.org/)
 - Dockerfile: test and run codes within container
-- Makefile: provides shortcuts to making life easier
+- ~~Makefile: provides shortcuts to making life easier~~ Deprecated, replaced by Task
+- Task runner [Task](https://taskfile.dev/): easily run pre-defined tasks specified in configuration file [Taskfile.yml](./Taskfile.yml)
 
 ### 🧹 Maintain a clean code style
 - Type checker: [mypy](https://github.com/python/mypy)
-- Code formatter:[black](https://github.com/psf/black)
-- Linter: [ruff](https://github.com/charliermarsh/ruff).  Rules→[here](https://beta.ruff.rs/docs/rules/)
-- Import sorter: [isort](https://pycqa.github.io/isort/)
+- Linter & Formatter: [Ruff](https://github.com/charliermarsh/ruff).  Rules→[here](https://beta.ruff.rs/docs/rules/)
+- ~~Code formatter:[black](https://github.com/psf/black)~~ Deprecated, covered by Ruff.
+- ~~Import sorter: [isort](https://pycqa.github.io/isort/)~~ Deprecated, covered by Ruff.
 
 ### 🩺 Testing framework [pytest](https://docs.pytest.org/en/7.4.x/)
 - Running test: `pytest ./src/test`
@@ -29,7 +30,7 @@ A template for **Python project**, equipped with best practices, can be used whe
 - Generate & modify [.pre-commit-config.yaml](./.pre-commit-config.yaml)
 - Set up the git hook scripts: `pre-commit install`
 - TODO:
-    - black [link](https://black.readthedocs.io/en/stable/integrations/source_version_control.html)
+    - ~~black [link](https://black.readthedocs.io/en/stable/integrations/source_version_control.html)~~
     - ruff [link](https://beta.ruff.rs/docs/tutorial/#continuous-integration)
 
 ### 📝 Github Features:
