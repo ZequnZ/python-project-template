@@ -12,13 +12,12 @@ tasks:
   linter:
     desc: Run ruff linter and fix the suggested changes.
     cmds:
-      - poetry run ruff check ./src --fix
+      - poetry run ruff check ./src --fix --verbose
 
   formatter:
     desc: Run ruff formatter to clean up the codebase.
     cmds:
-      - poetry run ruff check ./src --select I --fix
-      - poetry run ruff format ./src
+      - poetry run ruff format ./src --verbose
 
   checker:
     desc: Run type checker.
@@ -29,7 +28,7 @@ tasks:
     desc: Run tests(unit, integration and more...) in TESTDIR(default=tests) folder
     dir: '{{ .USER_WORKING_DIR }}'
     cmds:
-      - poetry run pytest -sv ./src/{{ .TESTDIR }} -s
+      - poetry run pytest ./src/{{ .TESTDIR }} -sv --durations=0
 
   precommit:
     desc: Run pre-commit
