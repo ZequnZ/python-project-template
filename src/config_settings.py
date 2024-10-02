@@ -44,8 +44,10 @@ class PyprojectTomlDefaultConfigSettingsSource(PyprojectTomlConfigSettingsSource
         self.toml_file_path = self._pick_pyproject_toml_file(
             toml_file, settings_cls.model_config.get("pyproject_toml_depth", 0)
         )
-        # Set the default table: [config.default] here
-        self.toml_table_header: tuple[str, ...] = ("config", "default")
+        # Set the default table here, default is [config.default]
+        self.toml_table_header: tuple[str, ...] = settings_cls.model_config.get(
+            "pyproject_toml_default_table_header", ("config", "default")
+        )
         self.toml_data = self._read_files(self.toml_file_path)
         for key in self.toml_table_header:
             self.toml_data = self.toml_data.get(key, {})
@@ -92,5 +94,6 @@ class BasicSettings(SourceSettings):
             "config",
             os.environ.get("ENVIRONMENT"),
         ),
+        pyproject_toml_default_table_header=("config", "default"),
         extra="ignore",
     )
