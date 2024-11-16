@@ -6,9 +6,9 @@ indent-width = 4
 target-version = "py310"
 
 [lint]
-# Enable pycodestyle (`E`, `W`), Pyflakes (`F`),
+# Enable pycodestyle (`E`, `W`), Pyflakes (`F`), pyupgrade (`UP`)
 # McCabe complexity (`C901`), isort (`I`) codes by default.
-select = ["E", "F", "W", "C901", "I"]
+select = ["E", "F", "W", "C901", "I", "UP"]
 ignore = ["E501"]
 
 # Allow fix for all enabled rules (when `--fix`) is provided.

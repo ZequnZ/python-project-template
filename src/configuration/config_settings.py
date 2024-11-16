@@ -1,7 +1,6 @@
 import os
 import sys
 from pathlib import Path
-from typing import Optional, Tuple, Type
 
 from pydantic import (
     Field,
@@ -16,7 +15,7 @@ from pydantic_settings import (
 )
 
 
-def get_cli_parse_args() -> Optional[bool]:
+def get_cli_parse_args() -> bool | None:
     """
     Based on the CLI arguments, return whether to parse the CLI arguments or not:
     - If the program is invoked by pytest, return None.
@@ -37,8 +36,8 @@ class PyprojectTomlDefaultConfigSettingsSource(PyprojectTomlConfigSettingsSource
 
     def __init__(
         self,
-        settings_cls: Type[BaseSettings],
-        toml_file: Optional[Path] = None,
+        settings_cls: type[BaseSettings],
+        toml_file: Path | None = None,
     ) -> None:
         self.toml_file_path = self._pick_pyproject_toml_file(
             toml_file, settings_cls.model_config.get("pyproject_toml_depth", 0)
@@ -64,12 +63,12 @@ class SourceSettings(BaseSettings):
     @classmethod
     def settings_customise_sources(
         cls,
-        settings_cls: Type[BaseSettings],
+        settings_cls: type[BaseSettings],
         init_settings: PydanticBaseSettingsSource,
         env_settings: PydanticBaseSettingsSource,
         dotenv_settings: PydanticBaseSettingsSource,
         file_secret_settings: PydanticBaseSettingsSource,
-    ) -> Tuple[PydanticBaseSettingsSource, ...]:
+    ) -> tuple[PydanticBaseSettingsSource, ...]:
         # Orders of sources show the priority of the sources, the earlier the higher priority.
         return (
             CliSettingsSource(settings_cls, cli_parse_args=get_cli_parse_args()),
