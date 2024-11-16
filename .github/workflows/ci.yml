@@ -20,7 +20,6 @@ jobs:
         uses: arduino/setup-task@v2
         with:
           version: 3.38.0
-      - uses: pre-commit/action@v3.0.1
 
       - name: Install poetry
         uses: abatilo/actions-poetry@v2
@@ -39,6 +38,9 @@ jobs:
           key: venv-${{ hashFiles('poetry.lock') }}
       - name: Install the project dependencies
         run: poetry install
+
+      - uses: pre-commit/action@v3.0.1
+
       - name: Run the automated tests (for example)
         # run: poetry run pytest -v
         run: poetry run pytest ./src/test -sv --durations=0
