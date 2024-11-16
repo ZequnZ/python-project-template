@@ -36,6 +36,7 @@ A template for **Python project**, equipped with best practices, can be used whe
 ### 📝 Github Features:
 - PR template
 - Issue template
+- CI workflow
 
 
 ## Guidebook
