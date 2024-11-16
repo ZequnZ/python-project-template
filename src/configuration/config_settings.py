@@ -1,4 +1,3 @@
-# type: ignore
 import os
 import sys
 from pathlib import Path
@@ -46,7 +45,8 @@ class PyprojectTomlDefaultConfigSettingsSource(PyprojectTomlConfigSettingsSource
         )
         # Set the default table here, default is [config.default]
         self.toml_table_header: tuple[str, ...] = settings_cls.model_config.get(
-            "pyproject_toml_default_table_header", ("config", "default")
+            "pyproject_toml_default_table_header",
+            ("config", "default"),  # type: ignore[assignment]
         )
         self.toml_data = self._read_files(self.toml_file_path)
         for key in self.toml_table_header:
@@ -89,11 +89,13 @@ class BasicSettings(SourceSettings):
     BasicSettings class: define the environment-specific table in pyproject.toml.
     """
 
-    model_config = SettingsConfigDict(
-        pyproject_toml_table_header=(
+    model_config = SettingsConfigDict(  # type: ignore[typeddict-unknown-key]
+        pyproject_toml_table_header=(  # type: ignore[typeddict-item]
             "config",
             os.environ.get("ENVIRONMENT"),
         ),
         pyproject_toml_default_table_header=("config", "default"),
         extra="ignore",
+        # Ignore unknown CLI arguments
+        cli_ignore_unknown_args=True,
     )
