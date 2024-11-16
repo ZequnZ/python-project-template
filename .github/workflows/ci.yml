@@ -34,6 +34,6 @@ jobs:
         run: poetry install
       - name: Run the automated tests (for example)
         # run: poetry run pytest -v
-        run: task run-test
+        run: poetry run pytest ./src/test -sv --durations=0
 
 # ref: https://github.com/marketplace/actions/python-poetry-action
