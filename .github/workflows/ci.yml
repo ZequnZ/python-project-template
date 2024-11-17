@@ -56,6 +56,6 @@ jobs:
         id: gather_updateable_dependencies
         run: |
           body=$(poetry show --outdated --no-interaction)
-          echo "{update_details}={$body}" >> $GITHUB_OUTPUT
+          echo "{update_details}={$body}" >> $GITHUB_ENV
 
 # ref: https://github.com/marketplace/actions/python-poetry-action
