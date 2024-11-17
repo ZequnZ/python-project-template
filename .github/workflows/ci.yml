@@ -57,9 +57,9 @@ jobs:
         run: |
           body=$(poetry show --outdated --no-interaction)
           {
-            echo "UPDATE_DETAILS<<EOF"
+            echo "UPDATE_DETAILS<<$EOF"
             $body
-            echo EOF
+            echo $EOF
           } >> "$GITHUB_OUTPUT"
 
       - name: Print updateable dependencies
