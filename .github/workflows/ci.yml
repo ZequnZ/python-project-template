@@ -47,6 +47,7 @@ jobs:
         run: poetry run pytest ./src/test -sv --durations=0
 
       - uses: pyupio/safety-action@v1
+        if: runner.os == 'Linux'
         name: Run Safety check(using safety)
         with:
           api-key: ${{ secrets.SAFETY_API_KEY }}
@@ -65,15 +66,22 @@ jobs:
           ### my version####
           ### chatgpt version####
           UPDATE_DETAILS="library, current_version -> latest_version\n"
-          # Use input redirection to avoid subshell
-          poetry show --outdated | while read line; do
+
+          # Directly reading from poetry show --outdated without a pipe
+          while IFS= read -r line; do
+            # Parse the line into variables
             IFS=' ' read -r library current_version latest_version extra_info <<< "$line"
 
             # Append the details to UPDATE_DETAILS
             UPDATE_DETAILS="${UPDATE_DETAILS}${library}, ${current_version} -> ${latest_version}\n"
 
-            echo "$UPDATE_DETAILS"  # Print the current update details inside the loop
-          done
+            # Print the current update details inside the loop
+            echo "$UPDATE_DETAILS"
+          done < <(poetry show --outdated)  # Using process substitution to feed poetry show output into the while loop
+
+          # Print final value of UPDATE_DETAILS
+          echo "$UPDATE_DETAILS"
+
           ### chatgpt version####
           UPDATE_DETAILS="${UPDATE_DETAILS:0:-2}"
           echo "${UPDATE_DETAILS}"
