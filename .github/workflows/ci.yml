@@ -61,8 +61,17 @@ jobs:
           #   $body
           #   echo "\n"
           # } >> "$GITHUB_OUTPUT"
-          poetry show -o > poetry_output.txt
-          echo "UPDATE_DETAILS=$(cat poetry_output.txt)" >> $GITHUB_OUTPUT
+          # poetry show -o > poetry_output.txt
+          # echo "UPDATE_DETAILS=$(cat poetry_output.txt)" >> $GITHUB_OUTPUT
+          UPDATE_DETAILS=$(poetry show -o | while read line; do
+            IFS=' ' read -r library current_version latest_version extra_info <<< "$line"
+            echo "$library, $current_version, $latest_version"
+          done)
+          {
+            echo "UPDATE_DETAILS<<\n"
+            $UPDATE_DETAILS
+            echo "\n"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Print updateable dependencies
         if: ${{ steps.gather_updateable_dependencies.outputs.UPDATE_DETAILS != 0 }}
