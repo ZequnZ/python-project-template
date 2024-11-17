@@ -34,3 +34,8 @@ tasks:
     desc: Run pre-commit
     cmds:
       - poetry run pre-commit run
+
+  check_updatable_libs:
+    desc: Run poetry to see if libs can be updated
+    cmds:
+      - poetry show --outdated --no-interaction
