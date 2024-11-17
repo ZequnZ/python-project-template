@@ -92,11 +92,35 @@ jobs:
             echo "\n"
           } >> "$GITHUB_OUTPUT"
 
+      - name: Gather updateable dependencies2
+        id: gather_updateable_dependencies2
+        run: |
+          UPDATE_DETAILS="library, current_version -> latest_version\n"
+
+          # Directly reading from poetry show --outdated without a pipe
+          while IFS= read -r line; do
+            # Parse the line into variables
+            IFS=' ' read -r library current_version latest_version extra_info <<< "$line"
+
+            # Append the details to UPDATE_DETAILS
+            UPDATE_DETAILS="${UPDATE_DETAILS}${library}, ${current_version} -> ${latest_version}\n"
+
+            # Print the current update details inside the loop
+            echo "$UPDATE_DETAILS"
+          done < <(poetry show --outdated)  # Using process substitution to feed poetry show output into the while loop
+          echo "$UPDATE_DETAILS"
+          UPDATE_DETAILS="${UPDATE_DETAILS//'%'/'%25'}"
+          UPDATE_DETAILS="${UPDATE_DETAILS//$'\n'/'%0A'}"
+          UPDATE_DETAILS="${UPDATE_DETAILS//$'\r'/'%0D'}"
+          echo "UPDATE_DETAILS2=${UPDATE_DETAILS}" >> "$GITHUB_OUTPUT"
+
       - name: Print updateable dependencies
         # if: ${{ steps.gather_updateable_dependencies.outputs.UPDATE_DETAILS != 0 }}
         env:
           UPDATE_DETAILS: ${{ steps.gather_updateable_dependencies.outputs.UPDATE_DETAILS }}
+          UPDATE_DETAILS2: ${{ steps.gather_updateable_dependencies2.outputs.UPDATE_DETAILS2 }}
         run: |
           echo "$UPDATE_DETAILS"
+          echo "$UPDATE_DETAILS2"
 
 # ref: https://github.com/marketplace/actions/python-poetry-action
