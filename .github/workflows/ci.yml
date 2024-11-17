@@ -79,7 +79,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Print updateable dependencies
-        if: ${{ steps.gather_updateable_dependencies.outputs.UPDATE_DETAILS != 0 }}
+        # if: ${{ steps.gather_updateable_dependencies.outputs.UPDATE_DETAILS != 0 }}
         env:
           UPDATE_DETAILS: ${{ steps.gather_updateable_dependencies.outputs.UPDATE_DETAILS }}
         run: |
