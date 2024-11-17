@@ -56,6 +56,7 @@ jobs:
       - name: Gather updateable dependencies
         id: gather_updateable_dependencies
         run: |
+          echo $(poetry show -o -n)
           ### my version####
           # UPDATE_DETAILS="library, current_version -> latest_version\n"
           # poetry show --outdated | while read line; do
