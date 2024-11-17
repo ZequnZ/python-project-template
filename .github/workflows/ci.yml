@@ -72,6 +72,7 @@ jobs:
             IFS=' ' read -r library current_version latest_version extra_info <<< "$line"
             UPDATE_DETAILS="${UPDATE_DETAILS}$library, $current_version, $latest_version\n"
           done
+          UPDATE_DETAILS="${UPDATE_DETAILS:0:-2}"
           {
             echo "UPDATE_DETAILS<<\n"
             $UPDATE_DETAILS
