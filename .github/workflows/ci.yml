@@ -10,6 +10,7 @@ jobs:
         poetry-version: ["1.7.1"]
         os: [ubuntu-22.04]
     runs-on: ${{ matrix.os }}
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -25,24 +26,29 @@ jobs:
         uses: abatilo/actions-poetry@v2
         with:
           poetry-version: ${{ matrix.poetry-version }}
-      # - name: Check out poetry version
-      #   run: poetry --version
+
       - name: Setup a local virtual environment (if no poetry.toml file)
         run: |
           poetry config virtualenvs.create true --local
           poetry config virtualenvs.in-project true --local
+
       - uses: actions/cache@v4
         name: Define a cache for the virtual environment based on the dependencies lock file
         with:
           path: ./.venv
           key: venv-${{ hashFiles('poetry.lock') }}
+
       - name: Install the project dependencies
         run: poetry install
 
       - uses: pre-commit/action@v3.0.1
 
-      - name: Run the automated tests (for example)
-        # run: poetry run pytest -v
+      - name: Run the automated tests(using pytest)
         run: poetry run pytest ./src/test -sv --durations=0
+
+      - uses: pyupio/safety-action@v1
+        name: Run Safety check(using safety)
+        with:
+          api-key: ${{ secrets.SAFETY_API_KEY }}
 
 # ref: https://github.com/marketplace/actions/python-poetry-action
