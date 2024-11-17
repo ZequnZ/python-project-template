@@ -53,8 +53,8 @@ jobs:
           api-key: ${{ secrets.SAFETY_API_KEY }}
           args: --detailed-output # To always see detailed output from this action
 
-      - name: Gather updateable dependencies
-        id: gather_updateable_dependencies
+      - name: Gather updatable dependencies
+        id: gather_updatable_dependencies
         run: |
           UPDATE_DETAILS="library, current_version -> latest_version:\n"
 
@@ -73,10 +73,10 @@ jobs:
             echo "\n"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Print updateable dependencies
-        if: ${{ steps.gather_updateable_dependencies.outputs.UPDATE_DETAILS != 0 }}
+      - name: Print updatable dependencies
+        if: ${{ steps.gather_updatable_dependencies.outputs.UPDATE_DETAILS != 0 }}
         env:
-          UPDATE_DETAILS: ${{ steps.gather_updateable_dependencies.outputs.UPDATE_DETAILS }}
+          UPDATE_DETAILS: ${{ steps.gather_updatable_dependencies.outputs.UPDATE_DETAILS }}
         run: |
           echo -e "$UPDATE_DETAILS"
 
