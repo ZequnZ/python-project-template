@@ -52,4 +52,10 @@ jobs:
           api-key: ${{ secrets.SAFETY_API_KEY }}
           args: --detailed-output # To always see detailed output from this action
 
+      - name: Gather updateable dependencies
+        id: gather_updateable_dependencies
+        run: |
+          body=$(poetry show --outdate --no-interaction)
+          echo ::set-output name="body::$body"
+
 # ref: https://github.com/marketplace/actions/python-poetry-action
