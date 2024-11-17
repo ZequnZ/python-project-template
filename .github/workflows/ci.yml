@@ -55,12 +55,14 @@ jobs:
       - name: Gather updateable dependencies
         id: gather_updateable_dependencies
         run: |
-          body="$(poetry show --outdated --no-interaction)$EOF"
-          {
-            echo "UPDATE_DETAILS<<\n"
-            $body
-            echo "\n"
-          } >> "$GITHUB_OUTPUT"
+          # body=$(poetry show --outdated --no-interaction)
+          # {
+          #   echo "UPDATE_DETAILS<<\n"
+          #   $body
+          #   echo "\n"
+          # } >> "$GITHUB_OUTPUT"
+          poetry show -o > poetry_output.txt
+          echo "UPDATE_DETAILS=$(cat poetry_output.txt)" >> $GITHUB_OUTPUT
 
       - name: Print updateable dependencies
         if: ${{ steps.gather_updateable_dependencies.outputs.UPDATE_DETAILS != 0 }}
