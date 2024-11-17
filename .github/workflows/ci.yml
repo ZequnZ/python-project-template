@@ -55,7 +55,7 @@ jobs:
       - name: Gather updateable dependencies
         id: gather_updateable_dependencies
         run: |
-          body=$(poetry show --outdate --no-interaction)
+          body=$(poetry show --outdated --no-interaction)
           echo ::set-output name="body::$body"
 
 # ref: https://github.com/marketplace/actions/python-poetry-action
