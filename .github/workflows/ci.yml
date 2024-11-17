@@ -121,6 +121,8 @@ jobs:
           UPDATE_DETAILS2: ${{ steps.gather_updateable_dependencies2.outputs.UPDATE_DETAILS2 }}
         run: |
           echo "$UPDATE_DETAILS"
+          echo -e "$UPDATE_DETAILS"
           echo "$UPDATE_DETAILS2"
+          echo -e "$UPDATE_DETAILS2"
 
 # ref: https://github.com/marketplace/actions/python-poetry-action
