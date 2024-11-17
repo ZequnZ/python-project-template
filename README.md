@@ -38,6 +38,8 @@ A template for **Python project**, equipped with best practices, can be used whe
 - Issue template
 - CI workflow
 
+### 🔫 Security check:
+- Dependency vulnerability check:[safety](https://github.com/pyupio/safety), support CLI and in CI workflow
 
 ## Guidebook
 
