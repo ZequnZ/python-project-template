@@ -73,9 +73,10 @@ jobs:
             UPDATE_DETAILS="${UPDATE_DETAILS}$library, $current_version, $latest_version\n"
           done
           UPDATE_DETAILS="${UPDATE_DETAILS:0:-2}"
+          echo "${UPDATE_DETAILS}"
           {
             echo "UPDATE_DETAILS<<\n"
-            $UPDATE_DETAILS
+            echo "${UPDATE_DETAILS}"
             echo "\n"
           } >> "$GITHUB_OUTPUT"
 
