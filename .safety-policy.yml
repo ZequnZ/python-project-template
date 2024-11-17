@@ -39,18 +39,3 @@ security-updates:
   dependency-vulnerabilities:
     auto-security-updates-limit:
       - patch
-
-installation:
-  default-action: deny
-  audit-logging:
-    enabled: true
-  allow:
-    packages: []
-    vulnerabilities: {}
-  deny:
-    packages:
-    vulnerabilities:
-      warning-on-any-of:
-        cvss-severity: []
-      block-on-any-of:
-        cvss-severity: []
