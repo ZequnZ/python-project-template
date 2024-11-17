@@ -55,11 +55,11 @@ jobs:
       - name: Gather updateable dependencies
         id: gather_updateable_dependencies
         run: |
-          body=$(poetry show --outdated --no-interaction)
+          body="$(poetry show --outdated --no-interaction)$EOF"
           {
-            echo "UPDATE_DETAILS<<$EOF"
+            echo "UPDATE_DETAILS<<EOF"
             $body
-            echo $EOF
+            echo EOF
           } >> "$GITHUB_OUTPUT"
 
       - name: Print updateable dependencies
