@@ -50,7 +50,6 @@ jobs:
         name: Run Safety check(using safety)
         with:
           api-key: ${{ secrets.SAFETY_API_KEY }}
-          continue-on-error: yes # Do not fail this action if vulnerabilities are found
           args: --detailed-output # To always see detailed output from this action
 
 # ref: https://github.com/marketplace/actions/python-poetry-action
