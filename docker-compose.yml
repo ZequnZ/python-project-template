@@ -1,0 +1,27 @@
+services:
+  pyproj:
+    profiles:
+      - pyproj
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - POETRY_INSTALL_OPTION=--with main
+    stdin_open: true
+    tty: true
+    user: root
+    command: /bin/bash
+    # ports:
+    #   - 8000:8000
+    volumes:
+      - ./src:/app/src
+      - type: bind
+        source: ./Taskfile.yml
+        target: /app/Taskfile.yml
+      - type: bind
+        source: ./ruff.toml
+        target: /app/ruff.toml
+    environment:
+      - ENVIRONMENT=local
+      - SHELL=/bin/bash
+    container_name: pyproj-template

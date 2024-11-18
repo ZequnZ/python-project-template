@@ -39,3 +39,23 @@ tasks:
     desc: Run poetry to see if libs can be updated
     cmds:
       - poetry show --outdated --no-interaction
+
+  dc-up:
+    desc: Start docker compose services, given PROFILE=<PROFILE_NAME>, BUILD=<--build>/<--no-build>
+    vars:
+      BUILD: '{{ .BUILD | default "--no-build" }}'
+      PROFILE: '{{ .PROFILE | default "pyproj" }}'
+    cmds:
+      - docker compose --profile {{.PROFILE}} up {{ .BUILD }}
+
+  dc-exec:
+    desc: Execute command in the running container, given SERVICE=<SERVICE_NAME>, CMD=<COMMAND>, if only one container is running, it will be selected automatically.
+    vars:
+      LATEST_SERVICE_CONTAINER_ID:
+        sh: docker ps -q --filter status=running -l
+      GIVEN_SERVICE_CONTAINER_ID:
+        sh: docker ps -q --filter status=running --filter name={{ .SERVICE }} -l
+      SERVICE_CONTAINER_ID: '{{ .GIVEN_SERVICE_CONTAINER_ID | default .LATEST_SERVICE_CONTAINER_ID }}'
+      CMD: '{{ .CMD | default "bash" }}'
+    cmds:
+      - docker exec -it {{ .SERVICE_CONTAINER_ID }} {{ .CMD }}
