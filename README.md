@@ -2,7 +2,7 @@
 
 A template for **Python project**, equipped with best practices, can be used whenever needed.
 
-[![CI](https://github.com/ZequnZ/python-project-template/workflows/CI/badge.svg?event=push)](https://github.com/ZequnZ/python-project-template/actions?query=event%3Apush+branch%3Amain+workflow%3ACI)
+[![CI](https://github.com/ZequnZ/python-project-template/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ZequnZ/python-project-template/actions?query=event%3Apush+branch%3Amain+workflow%3ACI)
 
 ## Highlights
 
