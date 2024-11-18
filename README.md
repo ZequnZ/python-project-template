@@ -2,6 +2,8 @@
 
 A template for **Python project**, equipped with best practices, can be used whenever needed.
 
+[![CI](https://github.com/pydantic/pydantic-settings/workflows/CI/badge.svg?event=push)](https://github.com/pydantic/pydantic-settings/actions?query=event%3Apush+branch%3Amain+workflow%3ACI)
+
 ## Highlights
 
 ### 🛠️ Reproducible development environment:
