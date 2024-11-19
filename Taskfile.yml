@@ -1,7 +1,7 @@
 version: '3'
 
 vars:
-  TESTDIR: test
+  TESTDIR: tests
 
 tasks:
   linter-watch:
@@ -28,7 +28,7 @@ tasks:
     desc: Run tests(unit, integration and more...) in TESTDIR(default=tests) folder
     dir: '{{ .USER_WORKING_DIR }}'
     cmds:
-      - poetry run pytest ./src/{{ .TESTDIR }} -sv --durations=0
+      - poetry run pytest ./{{ .TESTDIR }} -sv --durations=0
 
   precommit:
     desc: Run pre-commit

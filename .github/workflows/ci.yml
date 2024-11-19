@@ -48,7 +48,7 @@ jobs:
       - uses: pre-commit/action@v3.0.1
 
       - name: Run the automated tests(using pytest)
-        run: poetry run pytest ./src/test -sv --durations=0
+        run: poetry run pytest ./tests -sv --durations=0
 
       - uses: pyupio/safety-action@v1
         if: runner.os == 'Linux'
