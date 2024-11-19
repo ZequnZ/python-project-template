@@ -25,3 +25,12 @@ services:
       - ENVIRONMENT=local
       - SHELL=/bin/bash
     container_name: pyproj-template
+    depends_on:
+      - log_server
+
+  log_server:
+    build:
+      context: ./local_log_server
+      dockerfile: Dockerfile-log-server
+    expose:
+      - "5237/udp"

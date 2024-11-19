@@ -1,0 +1,8 @@
+FROM python:3.10.1-slim
+
+WORKDIR  /app
+
+COPY log_server.py /app
+
+CMD ["--port", "5237", "--save"]
+ENTRYPOINT ["python", "-u", "log_server.py"]
