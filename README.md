@@ -43,6 +43,9 @@ A template for **Python project**, equipped with best practices, can be used whe
 ### 🔫 Security check:
 - Dependency vulnerability check:[safety](https://github.com/pyupio/safety), support CLI and in CI workflow
 
+### Local log server
+TBD
+
 ## Guidebook
 
 ### Create a reproducible Python development environment with *pyenv* and *Poetry*
