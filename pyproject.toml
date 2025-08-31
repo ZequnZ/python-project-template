@@ -1,6 +1,6 @@
 [project]
 name = "python-project-template"
-version = "0.1.0"
+version = "0.2.0"
 description = ""
 authors = [
     {name = "ZequnZ", email = "zequn.zhou007@gmail.com"}

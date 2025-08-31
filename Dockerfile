@@ -27,10 +27,6 @@ ENV UV_PYTHON_DOWNLOADS=0
 # Install uv
 RUN pip install --no-cache-dir "uv==${UV_VERSION}"
 
-# Copy shared library files to container
-COPY lib/ /lib/
-COPY common_libs/ /common_libs/
-
 ARG DEPENDENCY_INSTALL_OPTION="--no-dev"
 # Install Python dependencies
 RUN --mount=type=cache,target=/root/.cache/uv \
@@ -49,9 +45,6 @@ WORKDIR /app
 
 # Copy installed Python dependencies to final container
 COPY --from=builder /.venv ${VIRTUAL_ENV}
-
-COPY --from=builder /lib/ /lib/
-COPY --from=builder /common_libs/ /common_libs/
 
 # Copy your code into container
 COPY src/ /app/src/
