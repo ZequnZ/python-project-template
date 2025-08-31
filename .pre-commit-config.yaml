@@ -1,32 +1,57 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+  # Standard pre-commit hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
     hooks:
-    -   id: trailing-whitespace
-    -   id: end-of-file-fixer
-    -   id: check-yaml
-    -   id: check-toml
-    -   id: check-added-large-files
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: debug-statements
 
--   repo: local
+  # Ruff for Python linting and formatting
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.12.11
     hooks:
-    -   id: ruff-linter
-        name: ruff-linter
-        entry: task linter
-        files: ./src
+      # Run the linter.
+      - id: ruff-check
+        args: [--fix]
+      # Run the formatter.
+      - id: ruff-format
+
+  # UV for dependency management
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    # uv version.
+    rev: 0.8.14
+    hooks:
+      # Make sure uv.lock is up to date
+      - id: uv-lock
+        name: "uv - lock dependencies"
+        description: "Update uv.lock if pyproject.toml dependencies changed"
+
+  # Local hooks for custom checks
+  - repo: local
+    hooks:
+      # Check for dependency updates (informational only)
+      - id: check-dependency-updates
+        name: "Check for dependency updates"
+        entry: bash
         language: system
-        always_run: true
-    -   id: ruff-formatter
-        name: ruff-formatter
-        entry: task formatter
-        files: ./src
-        language: system
-        always_run: true
-    -   id: mypy-checker
-        name: mypy-checker
-        entry: task checker
-        files: ./src
-        language: system
-        always_run: true
+        args:
+          - -c
+          - |
+            echo "🔍 Checking for dependency updates..."
+            echo "Current dependency constraints:"
+            grep -A 10 "^dependencies" pyproject.toml || true
+            echo ""
+            echo "💡 To upgrade dependencies within constraints, run: uv sync --upgrade"
+            echo "💡 To check for newer versions, run: uv tree --outdated (when available)"
+            echo "💡 Remember to update ~= constraints in pyproject.toml for new minor versions"
+        files: ^pyproject\.toml$
+        pass_filenames: false
+        always_run: false

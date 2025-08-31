@@ -1,38 +1,47 @@
 # Multi-stage build
-FROM python:3.10.6-slim as base
+FROM python:3.12-slim AS base
+
+ARG UV_VERSION=0.8.14
 
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
     # Keeps Python from generating .pyc files in the container
     PYTHONDONTWRITEBYTECODE=1 \
     # Turns off buffering for easier container logging
-    PYTHONUNBUFFERED=1 \
-    POETRY_CACHE_DIR=/tmp/poetry_cache
+    PYTHONUNBUFFERED=1
 
 # WORKDIR /app
 
-FROM base as builder
+FROM base AS builder
 
-ENV PIP_DEFAULT_TIMEOUT=100 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    PIP_NO_CACHE_DIR=1 \
-    POETRY_VERSION=1.7.1
+ENV UV_VERSION=${UV_VERSION} \
+    UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy
 
-# Install poetry
-RUN pip install "poetry==$POETRY_VERSION"
+# Disable Python downloads, because we want to use the system interpreter
+# across both images. If using a managed Python version, it needs to be
+# copied from the build image into the final image; see `standalone.Dockerfile`
+# for an example.
+ENV UV_PYTHON_DOWNLOADS=0
 
-# Copy poetry dependency files to container
-COPY pyproject.toml poetry.lock /
+# Install uv
+RUN pip install --no-cache-dir "uv==${UV_VERSION}"
 
-ARG POETRY_INSTALL_OPTION="--only main"
-# Install dependency
-RUN poetry config virtualenvs.in-project true && \
-    poetry install -vvv --no-root ${POETRY_INSTALL_OPTION} && \
-    rm -rf $POETRY_CACHE_DIR
+# Copy shared library files to container
+COPY lib/ /lib/
+COPY common_libs/ /common_libs/
 
-FROM base as final
+ARG DEPENDENCY_INSTALL_OPTION="--no-dev"
+# Install Python dependencies
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --frozen --no-install-project ${DEPENDENCY_INSTALL_OPTION}
 
-ENV VIRTUAL_ENV=/.venv \
+FROM base AS final
+
+ENV UV_VERSION=${UV_VERSION} \
+    VIRTUAL_ENV=/.venv \
     PATH="/.venv/bin:${PATH}" \
     PYTHONPATH="/app/src/"
 
@@ -41,11 +50,12 @@ WORKDIR /app
 # Copy installed Python dependencies to final container
 COPY --from=builder /.venv ${VIRTUAL_ENV}
 
-# Keep the container running
-CMD tail -f /dev/null
+COPY --from=builder /lib/ /lib/
+COPY --from=builder /common_libs/ /common_libs/
 
-# Copy your code into container. e.g.:
-# COPY /src /app
+# Copy your code into container
+COPY src/ /app/src/
 
-# Replace your enterpoint here. e.g:
-# ENTRYPOINT ["python", "-m", "main"]
+# This is needed to for running locally
+ARG INSTALL_UV=false
+RUN bash -c "if [ $INSTALL_UV == 'true' ] ; then pip install 'uv==$UV_VERSION' ; fi"
