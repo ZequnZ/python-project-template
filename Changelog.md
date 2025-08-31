@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Updated pre-commit configuration to use direct ruff and uv integrations
 - Updated Python base image in Dockerfile from 3.10.6-slim to 3.12-slim
 - Updated README.md documentation to reflect uv usage and simplified setup process
+- Updated GitHub Actions CI workflow to use uv instead of Poetry and Python 3.12
 
 ### Added
 - uv pre-commit hook for automatic dependency lock file updates
