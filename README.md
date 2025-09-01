@@ -7,8 +7,7 @@ A template for **Python project**, equipped with best practices, can be used whe
 ## Highlights
 
 ### 🛠️ Reproducible development environment:
-- Python version management tool: [pyenv](https://github.com/pyenv/pyenv)
-- Python packaging and dependency management: [Poetry](https://python-poetry.org/)
+- Python packaging and dependency management: [uv](https://docs.astral.sh/uv/) (handles Python installation and virtual environments)
 - Dockerfile: test and run codes within container
 - ~~Makefile: provides shortcuts to making life easier~~ Deprecated, replaced by Task
 - Task runner [Task](https://taskfile.dev/): easily run pre-defined tasks specified in configuration file [Taskfile.yml](./Taskfile.yml)
@@ -45,41 +44,42 @@ A template for **Python project**, equipped with best practices, can be used whe
 
 ## Guidebook
 
-### Create a reproducible Python development environment with *pyenv* and *Poetry*
-Here I use a Python version management tool: [pyenv](https://github.com/pyenv/pyenv).
-As a user, we can easily install and switch between different versions of Python.
-You can install pyenv following [this link](https://github.com/pyenv/pyenv#getting-pyenv).
+### Create a reproducible Python development environment with *uv*
 
-[Poetry](https://python-poetry.org/) is a great tool for Python packaging and dependency management, as a user you can easily reproduce the development environment and update the packages when possible, especially when it is already being used - which is the case for this project.
-You can install Poetry following [this link](https://python-poetry.org/docs/#installation), after setting the Python version as mentioned above.
+[uv](https://docs.astral.sh/uv/) is an extremely fast Python package and project manager that handles both Python installation and dependency management. It's all you need to set up a reproducible development environment for this project.
 
-Then we can create a Python virtual env as follows:
-1. Install a specific verion of Python:
-```
-    # Install Python 3.10.6 as an example
-    pyenv install 3.10.6
+You can install uv following [this link](https://docs.astral.sh/uv/getting-started/installation/).
+
+Setting up the development environment is simple:
+
+1. **Install Python and create virtual environment with dependencies:**
+```bash
+uv sync
 ```
 
-**[Deprecated]**, use Poetry for setting virtual environment and dependency management
+That's it! uv will automatically:
+- Install Python 3.12+ if not available (as specified in `pyproject.toml`)
+- Create a virtual environment in `.venv/`
+- Install all project dependencies and development tools
 
-~~2. Create a virtual env, with Python verison and customized name:~~
+2. **Activate the virtual environment:**
+```bash
+source .venv/bin/activate
 ```
-    pyenv virtualenv <python_version> <environment_name>
-```
-~~3. After installation, you will be able to activate and deactivate the env:~~
-```
-    # Activate
-    pyenv activate <environment_name>
-    # Deactivate
-    source deactivate
-```
-~~Activating your env to maintain a stable development environment.~~
 
-And then, you just need:
+3. **Run commands within the environment:**
+```bash
+# Run tests
+uv run pytest ./src/test
 
-2. Create a virtual environment and install dependency:
-```
-poetry install
+# Run linting
+uv run ruff check
+
+# Add new dependencies
+uv add <package-name>
+
+# Add development dependencies
+uv add --group dev <package-name>
 ```
 
 ## TODO

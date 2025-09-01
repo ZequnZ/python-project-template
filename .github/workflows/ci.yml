@@ -10,8 +10,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.10"]
-        poetry-version: ["1.7.1"]
+        python-version: ["3.12"]
+        uv-version: ["0.8.14"]
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
 
@@ -21,34 +21,33 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: ${{ matrix.uv-version }}
+
       - name: Install Task
         uses: arduino/setup-task@v2
         with:
           version: 3.38.0
 
-      - name: Install poetry
-        uses: abatilo/actions-poetry@v2
-        with:
-          poetry-version: ${{ matrix.poetry-version }}
-
-      - name: Setup a local virtual environment (if no poetry.toml file)
-        run: |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
-
       - uses: actions/cache@v4
-        name: Define a cache for the virtual environment based on the dependencies lock file
+        name: Cache uv dependencies
         with:
-          path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
+          path: |
+            ~/.cache/uv
+            .venv
+          key: ${{ runner.os }}-uv-${{ hashFiles('uv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-uv-
 
-      - name: Install the project dependencies
-        run: poetry install
+      - name: Install dependencies
+        run: uv sync --all-groups
 
       - uses: pre-commit/action@v3.0.1
 
       - name: Run the automated tests(using pytest)
-        run: poetry run pytest ./src/test -sv --durations=0
+        run: uv run pytest ./src/test -sv --durations=0
 
       - uses: pyupio/safety-action@v1
         if: runner.os == 'Linux'
@@ -57,31 +56,18 @@ jobs:
           api-key: ${{ secrets.SAFETY_API_KEY }}
           args: --detailed-output # To always see detailed output from this action
 
-      - name: Gather updatable dependencies
-        id: gather_updatable_dependencies
+      - name: Check for dependency updates
+        id: check_updates
         run: |
-          UPDATE_DETAILS="library, current_version -> latest_version:\n"
+          echo "Checking for dependency updates..."
+          echo "Current dependency constraints:"
+          grep -A 10 "^dependencies" pyproject.toml || true
+          echo ""
+          echo "Current dev dependencies:"
+          grep -A 10 "^\[dependency-groups\]" pyproject.toml || true
+          echo ""
+          echo "💡 To upgrade dependencies within constraints, run: uv sync --upgrade"
+          echo "💡 To check for newer versions, manually review PyPI for each package"
+          echo "💡 Remember to update ~= constraints in pyproject.toml for new minor versions"
 
-          # Directly reading from poetry show --outdated without a pipe
-          while IFS= read -r line; do
-            # Parse the line into variables
-            IFS=' ' read -r library current_version latest_version extra_info <<< "$line"
-            # Append the details to UPDATE_DETAILS
-            UPDATE_DETAILS="${UPDATE_DETAILS}${library}, ${current_version} -> ${latest_version}\n"
-          done < <(poetry show --outdated)  # Using process substitution to feed poetry show output into the while loop
-
-          UPDATE_DETAILS="${UPDATE_DETAILS:0:-2}"
-          {
-            echo "UPDATE_DETAILS<<\n"
-            echo "${UPDATE_DETAILS}"
-            echo "\n"
-          } >> "$GITHUB_OUTPUT"
-
-      - name: Print updatable dependencies
-        if: ${{ steps.gather_updatable_dependencies.outputs.UPDATE_DETAILS != 0 }}
-        env:
-          UPDATE_DETAILS: ${{ steps.gather_updatable_dependencies.outputs.UPDATE_DETAILS }}
-        run: |
-          echo -e "$UPDATE_DETAILS"
-
-# ref: https://github.com/marketplace/actions/python-poetry-action
+# ref: https://github.com/astral-sh/setup-uv

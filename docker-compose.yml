@@ -1,12 +1,11 @@
 services:
   pyproj:
-    profiles:
-      - pyproj
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        - POETRY_INSTALL_OPTION=--with main
+        - DEPENDENCY_INSTALL_OPTION=--all-groups
+        - INSTALL_UV=true
     stdin_open: true
     tty: true
     user: root
