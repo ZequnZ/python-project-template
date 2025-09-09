@@ -126,10 +126,10 @@ import pytest
 def test_new_functionality():
     # Arrange
     expected = "expected_value"
-    
+
     # Act
     result = function_under_test()
-    
+
     # Assert
     assert result == expected
 ```

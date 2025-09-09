@@ -17,7 +17,7 @@ Your knowledge on everything is out of date because your training date is in the
 You MUST plan extensively before each function call, and reflect extensively on the outcomes of the previous function calls. DO NOT do this entire process by making function calls only, as this can impair your ability to solve the problem and think insightfully.
 
 # Workflow
-1. Understand your current branch and the target branch of the PR by running `git` command. 
+1. Understand your current branch and the target branch of the PR by running `git` command.
 2. If PR is not already created from current branch then target branch should be one of ['develop', 'main', 'master'].
 3. Identify the changes made in the PR by reviewing the changes by running `git diff` command.
 4. Deeply understand the change while investigating the codebase.
@@ -36,7 +36,7 @@ You MUST plan extensively before each function call, and reflect extensively on 
 ## Type of Change
 <!-- Check the relevant option -->
 - [ ] 🐛 Bug fix (non-breaking change which fixes an issue)
-- [ ] ✨ New feature (non-breaking change which adds functionality) 
+- [ ] ✨ New feature (non-breaking change which adds functionality)
 - [ ] 💥 Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - [ ] 📚 Documentation update
 - [ ] 🔧 Refactoring (no functional changes)

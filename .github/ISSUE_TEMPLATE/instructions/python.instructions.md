@@ -33,7 +33,7 @@ applyTo: '**/*.py'
 2. Add docstrings for classes and public methods
 3. Follow the existing import order (standard library, third-party, local)
 4. Use Pydantic models for data validation when appropriate
-    
+
 ## Code Style and Formatting
 
 - Follow the **PEP 8** style guide for Python.
@@ -67,10 +67,10 @@ applyTo: '**/*.py'
 def calculate_area(radius: float) -> float:
     """
     Calculate the area of a circle given the radius.
-    
+
     Parameters:
     radius (float): The radius of the circle.
-    
+
     Returns:
     float: The area of the circle, calculated as π * radius^2.
     """
