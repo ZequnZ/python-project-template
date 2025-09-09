@@ -2,7 +2,25 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## Current version [0.2.0] - 2025-08-31
+## Current version [0.3.0] - 2025-09-09
+
+### Added
+- Comprehensive AI coding instructions and development guidelines
+- `.cursor/rules/python_guidelines.mdc` - Cursor AI editor rules with Python coding standards
+- `.cursorrules` - Main Cursor AI editor configuration file
+- `.github/ISSUE_TEMPLATE/instructions/python.instructions.md` - GitHub issue template instructions
+- `.github/copilot-instructions.md` - GitHub Copilot specific instructions for the project template
+- `.github/prompts/create-pr-description.prompt.md` - Automated PR description generation template
+- Multi-platform AI assistant support (Cursor, GitHub Copilot, general AI)
+- Standardized Python 3.12+ coding practices and conventions
+- Type hints and comprehensive documentation requirements
+- Error handling and edge case management guidelines
+- Modern development tool integration (Ruff, pytest, uv, Docker)
+
+### Changed
+- Renamed `src/configuration/config_test.py` to `src/configuration/config_example.py` for better clarity and naming convention
+
+## [0.2.0] - 2025-08-31
 
 ### Changed
 - **BREAKING**: Migrated from Poetry to [uv](https://docs.astral.sh/uv/) for Python package and dependency management
