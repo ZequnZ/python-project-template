@@ -1,0 +1,101 @@
+---
+description: Python coding standards and best practices
+globs: ["**/*.py"]
+alwaysApply: true
+---
+
+# Python Coding Standards
+
+## Python Version and Features
+- Target Python 3.12+ features and syntax
+- Use modern Python features like pattern matching, improved error messages, and new typing features
+
+## Code Quality and Documentation
+- Write clear and concise comments for each function
+- Ensure functions have descriptive names and include comprehensive type hints
+- Provide docstrings following PEP 257 conventions for all public functions and classes
+- Use the `typing` module for type annotations (e.g., `List[str]`, `Dict[str, int]`, `Optional[str]`)
+- Break down complex functions into smaller, more manageable functions
+- Always prioritize readability and clarity over cleverness
+
+## Code Structure and Organization
+- Follow the existing import order: standard library, third-party, local imports
+- Use blank lines to separate functions, classes, and code blocks appropriately
+- Do NOT create indented blank lines in .py scripts
+- Break down complex logic into smaller, well-named functions
+- Use Pydantic models for data validation when appropriate
+
+## Type Hints and Annotations
+- Include proper type hints for all function parameters and return types
+- Use `typing` module extensively for complex types
+- Add type hints for class attributes and instance variables
+- Use `Optional` for nullable values, `Union` for multiple types
+- Prefer `list[str]` over `List[str]` (Python 3.9+ syntax)
+
+## Code Style and Formatting
+- Follow PEP 8 style guide strictly
+- Use 4 spaces for indentation (no tabs)
+- Keep lines under 88 characters (Black-compatible)
+- Place docstrings immediately after `def` or `class` keyword
+- No trailing whitespace on blank lines
+- Use ruff for linting and formatting: `uv run ruff check <PATH> --fix`
+
+## Error Handling and Edge Cases
+- Handle edge cases explicitly with clear error messages
+- Write comprehensive exception handling with specific exception types
+- Include comments explaining edge cases and expected behavior
+- Validate inputs and provide meaningful error messages
+- Use context managers for resource management
+
+## Testing Requirements
+- Write unit tests for all public functions and methods
+- Name test files with `test_` prefix
+- Use descriptive test function names that explain what is being tested
+- Leverage pytest fixtures from `conftest.py`
+- Use parametrized tests for multiple test cases
+- Add appropriate pytest markers for test categorization
+- Include docstrings in test functions explaining test cases
+
+## Package Management
+- Use `uv` as the Python package manager
+- Run commands with `uv run <command>` when outside activated environment
+- Use `uv sync` to install dependencies and create virtual environment
+- Activate with `source .venv/bin/activate` when needed
+
+## Documentation Standards
+- Include docstrings for all public functions, classes, and methods
+- Document the purpose and usage of external libraries in comments
+- Explain algorithmic approaches and design decisions in comments
+- Provide examples in docstrings when helpful
+- Keep comments up-to-date with code changes
+
+## Example Function Structure
+```python
+def calculate_area(radius: float) -> float:
+    """
+    Calculate the area of a circle given the radius.
+    
+    Args:
+        radius: The radius of the circle
+        
+    Returns:
+        The area of the circle, calculated as π * radius^2
+        
+    Raises:
+        ValueError: If radius is negative
+    """
+    if radius < 0:
+        raise ValueError("Radius cannot be negative")
+    import math
+    return math.pi * radius ** 2
+```
+
+## Code Review Checklist
+- [ ] All functions have type hints and docstrings
+- [ ] Code follows PEP 8 and is formatted with ruff
+- [ ] Edge cases are handled appropriately
+- [ ] Tests cover critical functionality
+- [ ] No indented blank lines
+- [ ] Imports are properly organized
+- [ ] Error handling is comprehensive
+- [ ] Code is readable and well-commented
