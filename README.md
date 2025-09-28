@@ -39,6 +39,11 @@ A template for **Python project**, equipped with best practices, can be used whe
 - Issue template
 - CI workflow
 
+### 🤖 AI tool instructions:
+- [AGENTS.md](./AGENTS.md) - agent instructions for the project
+- Github Copilot instructions are added in [.github](./.github)
+- Cursor rules are added in [.cursor](./cursor)
+
 ### 🔫 Security check:
 - Dependency vulnerability check:[safety](https://github.com/pyupio/safety), support CLI and in CI workflow
 
