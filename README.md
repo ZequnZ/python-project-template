@@ -30,9 +30,7 @@ A template for **Python project**, equipped with best practices, can be used whe
 - Install pre-commit: [link](https://pre-commit.com/#install)
 - Generate & modify [.pre-commit-config.yaml](./.pre-commit-config.yaml)
 - Set up the git hook scripts: `pre-commit install`
-- TODO:
-    - ~~black [link](https://black.readthedocs.io/en/stable/integrations/source_version_control.html)~~
-    - ruff [link](https://beta.ruff.rs/docs/tutorial/#continuous-integration)
+
 
 ### 📝 Github Features:
 - PR template
