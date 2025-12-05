@@ -58,7 +58,9 @@ class SourceSettings(BaseSettings):
     SourceSettings class: define the sources and priorities for configuration.
     """
 
-    environment: str = Field(alias="ENVIRONMENT", description="Development environment")
+    environment: str = Field(
+        "default", alias="ENVIRONMENT", description="Development environment"
+    )
 
     @classmethod
     def settings_customise_sources(
@@ -88,12 +90,12 @@ class BasicSettings(SourceSettings):
     BasicSettings class: define the environment-specific table in pyproject.toml.
     """
 
-    model_config = SettingsConfigDict(  # type: ignore[typeddict-unknown-key]
+    model_config = SettingsConfigDict(
         pyproject_toml_table_header=(  # type: ignore[typeddict-item]
             "config",
             os.environ.get("ENVIRONMENT"),
         ),
-        pyproject_toml_default_table_header=("config", "default"),
+        pyproject_toml_default_table_header=("config", "default"),  # type: ignore[invalid-key]
         extra="ignore",
         # Ignore unknown CLI arguments
         cli_ignore_unknown_args=True,

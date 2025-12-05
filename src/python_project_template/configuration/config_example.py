@@ -1,8 +1,10 @@
-# type: ignore
 from typing import Any
 
-from config_settings import BasicSettings
 from pydantic import Field
+
+from python_project_template.configuration.config_settings import (
+    BasicSettings,
+)
 
 
 class ExampleSettings(BasicSettings):
@@ -28,7 +30,7 @@ class ExampleConfig(ExampleSettings):
     var3: str = Field(default="", description="Variable 3")
 
     def __init__(self, settings: ExampleSettings):
-        super().__init__(settings)
+        super().__init__()
         self.var3 = settings.var1 + str(settings.var2)
 
 
