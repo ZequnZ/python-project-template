@@ -13,7 +13,9 @@ A template for **Python project**, equipped with best practices, can be used whe
 - Task runner [Task](https://taskfile.dev/): easily run pre-defined tasks specified in configuration file [Taskfile.yml](./Taskfile.yml)
 
 ### 🧹 Maintain a clean code style
-- Type checker: [mypy](https://github.com/python/mypy)
+- Type checkers: 
+  - [ty](https://github.com/pyrefly/pyrefly) - Fast type checker built in Rust (configured in `ty.toml`)
+  - [pyrefly](https://github.com/pyrefly/pyrefly) - Advanced type checker with granular control (configured in `pyrefly.toml`)
 - Linter & Formatter: [Ruff](https://github.com/charliermarsh/ruff).  Rules→[here](https://beta.ruff.rs/docs/rules/)
 - ~~Code formatter:[black](https://github.com/psf/black)~~ Deprecated, covered by Ruff.
 - ~~Import sorter: [isort](https://pycqa.github.io/isort/)~~ Deprecated, covered by Ruff.
@@ -83,6 +85,38 @@ uv add <package-name>
 
 # Add development dependencies
 uv add --group dev <package-name>
+```
+
+### Available Task commands
+
+The project uses [Task](https://taskfile.dev/) as a task runner. Here are the available commands:
+
+**Code Quality:**
+```bash
+task linter           # Run ruff linter with auto-fix
+task linter-watch     # Run ruff linter in watch mode
+task formatter        # Run ruff formatter
+task ty-checker       # Run ty type checker (fast Rust-based)
+task pyrefly-checker  # Run pyrefly type checker (advanced analysis)
+task precommit        # Run all pre-commit hooks
+```
+
+**Testing:**
+```bash
+task run-test         # Run test suite in src/test folder
+```
+
+**Dependency Management:**
+```bash
+task check_updatable_libs  # Check for outdated dependencies
+```
+
+**Docker:**
+```bash
+task dc-up            # Start docker compose services
+                      # Usage: task dc-up PROFILE=<name> BUILD=--build
+task dc-exec          # Execute command in running container
+                      # Usage: task dc-exec SERVICE=<name> CMD=<command>
 ```
 
 ## TODO

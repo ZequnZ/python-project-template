@@ -6,6 +6,7 @@ services:
       args:
         - DEPENDENCY_INSTALL_OPTION=--all-groups
         - INSTALL_UV=true
+        - INSTALL_TASK=true
     stdin_open: true
     tty: true
     user: root
@@ -15,11 +16,20 @@ services:
     volumes:
       - ./src:/app/src
       - type: bind
+        source: ./pyproject.toml
+        target: /app/pyproject.toml
+      - type: bind
         source: ./Taskfile.yml
         target: /app/Taskfile.yml
       - type: bind
         source: ./ruff.toml
         target: /app/ruff.toml
+      - type: bind
+        source: ./ty.toml
+        target: /app/ty.toml
+      - type: bind
+        source: ./pyrefly.toml
+        target: /app/pyrefly.toml  
     environment:
       - ENVIRONMENT=local
       - SHELL=/bin/bash

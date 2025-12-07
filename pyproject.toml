@@ -1,6 +1,6 @@
 [project]
 name = "python-project-template"
-version = "0.3.0"
+version = "0.4.0"
 description = ""
 authors = [
     {name = "ZequnZ", email = "zequn.zhou007@gmail.com"}
@@ -12,30 +12,21 @@ dependencies = [
     "pydantic-settings~=2.10.0"
 ]
 
-[tool.uv]
-package = false
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 
 [dependency-groups]
 dev = [
-    "mypy>=1.4.1",
     "ruff>=0.12.0",
     "pytest>=8.3.1",
     "pytest-cov>=4.1.0",
     "pre-commit>=4.3.0",
-    "safety>=3.2.11"
+    "safety>=3.2.11",
+    "ty>=0.0.1a29",
+    "pyrefly>=0.44.1",
 ]
-
-# mypy global options:
-# See https://mypy.readthedocs.io/en/stable/config_file.html#example-pyproject-toml
-[tool.mypy]
-python_version = "3.12"
-warn_return_any = true
-warn_unused_configs = true
-
-[[tool.mypy.overrides]]
-module = [
-]
-#ignore_missing_imports = true
 
 # pytest config
 [tool.pytest.ini_options]

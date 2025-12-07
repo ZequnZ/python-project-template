@@ -18,12 +18,15 @@ This is a modern Python project template designed with best practices for mainta
 ### Project Structure
 ```
 src/
-├── configuration/          # Pydantic-based configuration management
-│   ├── config_settings.py  # Environment-specific settings
-│   └── config_test.py      # Configuration tests
-└── test/                   # Test suite
-    ├── conftest.py         # Pytest fixtures and configuration
-    └── test_*.py           # Test files
+├── python_project_template/    # Main package directory
+│   ├── __init__.py
+│   └── configuration/          # Pydantic-based configuration management
+│       ├── __init__.py
+│       ├── config_settings.py  # Environment-specific settings
+│       └── config_example.py   # Configuration examples
+└── test/                       # Test suite
+    ├── conftest.py             # Pytest fixtures and configuration
+    └── test_*.py               # Test files
 ```
 
 ## Development Guidelines
@@ -36,6 +39,9 @@ src/
 ### Code Style & Quality
 - **Import style**: Use Ruff's isort-compatible import sorting
 - **Type hints**: Required for all public functions and methods
+- **Type checking**: Project uses multiple type checkers:
+  - ty for fast Rust-based type checking (configuration in `ty.toml`)
+  - pyrefly for advanced type analysis with granular error control (configuration in `pyrefly.toml`)
 - **Docstrings**: Use Google-style docstrings for classes and functions
 
 ### Testing Practices
@@ -58,11 +64,15 @@ src/
 
 ### Available Tasks (Taskfile.yml)
 - `task linter`: Run Ruff linter with auto-fix
+- `task linter-watch`: Run Ruff linter in watch mode
 - `task formatter`: Run Ruff formatter
-- `task checker`: Run mypy type checking
+- `task ty-checker`: Run ty type checker (fast Rust-based)
+- `task pyrefly-checker`: Run pyrefly type checker (advanced analysis)
 - `task run-test`: Execute test suite
 - `task precommit`: Run pre-commit hooks
 - `task check_updatable_libs`: Check for dependency updates
+- `task dc-up`: Start docker compose services
+- `task dc-exec`: Execute command in running container
 
 
 ### For configuration-related code:

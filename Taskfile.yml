@@ -19,10 +19,15 @@ tasks:
     cmds:
       - uv run ruff format ./src --verbose
 
-  checker:
-    desc: Run type checker.
+  ty-checker:
+    desc: Run type checker using ty.
     cmds:
-      - uv run mypy ./src --check-untyped-defs
+      - uv run ty check .
+
+  pyrefly-checker:
+    desc: Run type checker using pyrefly.
+    cmds:
+      - uv run pyrefly check .
 
   run-test:
     desc: Run tests(unit, integration and more...) in TESTDIR(default=tests) folder

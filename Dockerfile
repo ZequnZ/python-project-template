@@ -1,7 +1,7 @@
 # Multi-stage build
 FROM python:3.12-slim AS base
 
-ARG UV_VERSION=0.8.14
+ARG UV_VERSION=0.9.16
 
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
@@ -10,7 +10,7 @@ ENV PYTHONFAULTHANDLER=1 \
     # Turns off buffering for easier container logging
     PYTHONUNBUFFERED=1
 
-# WORKDIR /app
+WORKDIR /app
 
 FROM base AS builder
 
@@ -37,18 +37,28 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 FROM base AS final
 
 ENV UV_VERSION=${UV_VERSION} \
-    VIRTUAL_ENV=/.venv \
-    PATH="/.venv/bin:${PATH}" \
+    VIRTUAL_ENV=/app/.venv \
+    PATH="/app/.venv/bin:${PATH}" \
     PYTHONPATH="/app/src/"
 
 WORKDIR /app
 
 # Copy installed Python dependencies to final container
-COPY --from=builder /.venv ${VIRTUAL_ENV}
+COPY --from=builder /app/.venv ${VIRTUAL_ENV}
 
 # Copy your code into container
 COPY src/ /app/src/
 
 # This is needed to for running locally
 ARG INSTALL_UV=false
-RUN bash -c "if [ $INSTALL_UV == 'true' ] ; then pip install 'uv==$UV_VERSION' ; fi"
+RUN sh -c "if [ $INSTALL_UV = 'true' ] ; then pip install 'uv==$UV_VERSION' ; fi"
+
+# Install Task for local development
+ARG INSTALL_TASK=false
+RUN sh -c "if [ $INSTALL_TASK = 'true' ] ; then \
+    python -c 'import urllib.request; urllib.request.urlretrieve(\"https://github.com/go-task/task/releases/download/v3.38.0/task_linux_amd64.tar.gz\", \"task_linux_amd64.tar.gz\")' && \
+    tar -zxf task_linux_amd64.tar.gz && \
+    mv task /usr/local/bin/task && \
+    chmod +x /usr/local/bin/task && \
+    rm task_linux_amd64.tar.gz ; \
+    fi"
