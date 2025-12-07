@@ -1,6 +1,6 @@
 [project]
 name = "python-project-template"
-version = "0.3.0"
+version = "0.4.0"
 description = ""
 authors = [
     {name = "ZequnZ", email = "zequn.zhou007@gmail.com"}
@@ -19,7 +19,6 @@ build-backend = "hatchling.build"
 
 [dependency-groups]
 dev = [
-    "mypy>=1.4.1",
     "ruff>=0.12.0",
     "pytest>=8.3.1",
     "pytest-cov>=4.1.0",
