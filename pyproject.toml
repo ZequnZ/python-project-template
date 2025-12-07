@@ -28,18 +28,6 @@ dev = [
     "pyrefly>=0.44.1",
 ]
 
-# mypy global options:
-# See https://mypy.readthedocs.io/en/stable/config_file.html#example-pyproject-toml
-[tool.mypy]
-python_version = "3.12"
-warn_return_any = true
-warn_unused_configs = true
-
-[[tool.mypy.overrides]]
-module = [
-]
-#ignore_missing_imports = true
-
 # pytest config
 [tool.pytest.ini_options]
 # Set the root folder here

@@ -2,7 +2,35 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## Current version [0.3.0] - 2025-09-09
+## Current version [0.4.0] - 2025-12-07
+
+### Added
+- Advanced type checking support with [ty](https://github.com/pyrefly/pyrefly) and [pyrefly](https://github.com/pyrefly/pyrefly)
+  - `ty.toml` configuration for fast Rust-based type checking
+  - `pyrefly.toml` configuration for granular type checking control
+  - Both tools added as dev dependencies in `pyproject.toml`
+- Project now configured as a proper Python package with build system support
+  - Added `build-system` configuration in `pyproject.toml` using hatchling
+  - Removed `[tool.uv] package = false` to enable package mode
+
+### Changed
+- **Project structure reorganization**:
+  - Moved source code from `src/configuration/` to `src/python_project_template/configuration/`
+  - Added proper package structure with `__init__.py` files
+  - Updated import paths in configuration modules to use package-relative imports
+- Removed unnecessary dependencies:
+  - `psutil` removed from safety dependencies
+  - `setuptools` removed (no longer needed with modern build systems)
+  - `sniffio` removed (unused transitive dependency)
+
+### Migration Notes
+- If you're importing from this project, update imports from `src.configuration` to `src.python_project_template.configuration`
+- The project can now be built and installed as a proper Python package using `uv build` or `pip install .`
+- Type checking can now be performed with three different tools:
+  - `uv run ty check` for fast Rust-based checking
+  - `uv run pyrefly` for advanced type analysis
+
+## [0.3.0] - 2025-09-09
 
 ### Added
 - Comprehensive AI coding instructions and development guidelines
