@@ -42,6 +42,7 @@ src/
   - ty for fast Rust-based type checking (configuration in `ty.toml`)
   - pyrefly for advanced type analysis with granular error control (configuration in `pyrefly.toml`)
 - **Docstrings**: Use Google-style docstrings for classes and functions
+- **SOLID principles**: Follow SOLID design principles for maintainable code
 
 ### Testing Practices
 - Tests located in `src/test/` directory
